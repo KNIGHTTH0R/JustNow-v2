@@ -9,13 +9,9 @@ Just Now is a news portal that uses data from newsapi.org.
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
-## History
-TODO: Write history
-## Credits
-TODO: Write credits
-## License
 
-Copyright {{ year }} {{ organization }}
+## License
+opyright {{ year }} {{ organization }}
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
