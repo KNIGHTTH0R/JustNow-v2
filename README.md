@@ -1,6 +1,6 @@
 <snippet>
   <content><![CDATA[
-# Just Now
+## Just Now
 Just Now is a news portal that uses data from newsapi.org.
 
 ## Contributing
