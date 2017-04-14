@@ -27,7 +27,7 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/ivPhoto"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:layout_margin="8dp"
             android:scaleType="centerCrop"
             app:riv_corner_radius="5dip" />

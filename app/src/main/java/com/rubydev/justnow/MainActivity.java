@@ -1,6 +1,7 @@
 package com.rubydev.justnow;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.media.Image;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -33,8 +34,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     ImageView ivCollaps;
-    String titleReal;
-    AppBarLayout appbar;
+    TextView tvHeader;
     private List<NewsDao.ArticlesBean> list = new ArrayList<>();
     private NewsAdapter adapter;
     private RecyclerView rv;
@@ -46,35 +46,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        tvHeader = (TextView) findViewById(R.id.tvHeader);
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
         setSupportActionBar(toolbar);
-        collapsingToolbarLayout.setTitleEnabled(false);
-        appbar = (AppBarLayout) findViewById(R.id.appbar);
-        appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isVisible = true;
-            int scrollRange = -1;
-
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
-                }
-                if (scrollRange + verticalOffset == 0) {
-                    toolbar.setTitle("Just Now");
-                    isVisible = true;
-                } else if (isVisible) {
-                    toolbar.setTitle(titleReal);
-                    isVisible = false;
-                }
-            }
-        });
+        collapsingToolbarLayout.setExpandedTitleColor(Color.parseColor("#00FFFFFF"));
 
         rv = (RecyclerView) findViewById(R.id.rv);
 
         layoutManager = new StaggeredGridLayoutManager(2, 1);
         rv.setLayoutManager(layoutManager);
         rv.setHasFixedSize(true);
-
 
         adapter = new NewsAdapter(MainActivity.this, list);
         rv.setAdapter(adapter);
@@ -96,9 +77,10 @@ public class MainActivity extends AppCompatActivity {
                     list.addAll(newsDao.getArticles());
                     ivCollaps = (ImageView) findViewById(R.id.ivCollaps);
                     Picasso.with(MainActivity.this)
-                            .load(list.get(1).getUrlToImage())
+                            .load(list.get(0).getUrlToImage())
                             .into(ivCollaps);
-                    titleReal = list.get(1).getTitle();
+                    tvHeader.setText(list.get(0).getTitle());
+                    list.remove(0);
                     adapter.notifyItemInserted(list.size());
 
                 }
@@ -107,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<NewsDao> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
-
             }
         });
 
