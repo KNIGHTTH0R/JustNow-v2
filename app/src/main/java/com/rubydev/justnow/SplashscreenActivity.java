@@ -18,25 +18,39 @@ public class SplashscreenActivity extends AppCompatActivity {
     static ListNews listNews;
     ArrayList<String> listProvider = new ArrayList<>();
 
+    Intent i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
-        Intent i;
-        listNews = new ListNews();
 
-        Provider provider = ProviderPref.load(this);
-        if (provider == null) {
-            i = new Intent(this, FirststartActivity.class);
-        } else {
-            listProvider.addAll(provider.getProviderList());
-            for (int j = 0; j < listProvider.size(); j++) {
-                Log.i("yogi", listProvider.get(j));
-                loadData(listProvider.get(j));
+        new Handler().postDelayed(new Runnable() {
+
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
+
+            @Override
+            public void run() {
+                listNews = new ListNews();
+
+                Provider provider = ProviderPref.load(SplashscreenActivity.this);
+                if (provider == null) {
+                    i = new Intent(SplashscreenActivity.this, FirststartActivity.class);
+                } else {
+                    listProvider.addAll(provider.getProviderList());
+                    for (int j = 0; j < listProvider.size(); j++) {
+                        Log.i("yogi", listProvider.get(j));
+                        loadData(listProvider.get(j));
+                    }
+                    i = new Intent(SplashscreenActivity.this, MainActivity.class);
+                }
+                finish();
+                startActivity(i);
+                finish();
             }
-            i = new Intent(this, MainActivity.class);
-        }
-        startActivity(i);
+        }, 1500);
     }
 
     public void loadData(String source) {
@@ -54,7 +68,6 @@ public class SplashscreenActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<NewsDao> call, Throwable t) {
-
             }
         });
 

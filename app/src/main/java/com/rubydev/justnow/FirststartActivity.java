@@ -20,6 +20,7 @@ public class FirststartActivity extends AppCompatActivity {
     TextView tvBBCnews, tvBBCsport, tvBI, tvFortune, tvMashable, tvCNN, tvNatgeo, tvTC;
     Button btnFinish;
     List<String> listProvider;
+    Intent i;
 
     ListNews listNews;
 
@@ -29,6 +30,7 @@ public class FirststartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_firststart);
         listProvider = new ArrayList<>();
         listNews = new ListNews();
+
         findViewById();
     }
 
@@ -219,9 +221,7 @@ public class FirststartActivity extends AppCompatActivity {
                     loadData(listProvider.get(j));
                 }
 
-                Intent i = new Intent();
                 i = new Intent(FirststartActivity.this, MainActivity.class);
-                startActivity(i);
             }
         });
     }
@@ -236,12 +236,15 @@ public class FirststartActivity extends AppCompatActivity {
                     NewsDao newsDao = response.body();
                     listNews.addList(newsDao.getArticles());
                     NewsPref.save(listNews, FirststartActivity.this);
+                    startActivity(i);
+                    finish();
                 }
             }
 
             @Override
             public void onFailure(Call<NewsDao> call, Throwable t) {
-
+                startActivity(i);
+                finish();
             }
         });
 
