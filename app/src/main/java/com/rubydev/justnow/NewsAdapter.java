@@ -2,6 +2,9 @@ package com.rubydev.justnow;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,13 +38,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public NewsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item, parent, false);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, NewsReader.class);
-                i.putExtra("newsreader", list.get(v))
-            }
-        });
         return new ViewHolder(view);
     }
 
@@ -62,16 +58,26 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvTitle, tvDesc, tvAuthor;
         ImageView ivPhoto;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             tvDesc = (TextView) itemView.findViewById(R.id.tvDesc);
             tvAuthor = (TextView) itemView.findViewById(R.id.tvAuthor);
             ivPhoto = (ImageView) itemView.findViewById(R.id.ivPhoto);
+        }
+
+        @Override
+        public void onClick(View view) {
+            String url = list.get(getAdapterPosition()).getUrl();
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            CustomTabsIntent customTabsIntent = builder.build();
+            builder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary));
+            customTabsIntent.launchUrl(context, Uri.parse(url));
         }
     }
 

@@ -96,11 +96,12 @@ public class MainActivity extends AppCompatActivity {
 
         ListNews listNews = NewsPref.load(this);
         if (listNews == null) {
-            //Selesaiin, ivHeader ganti ke gambar gaga loading
+            //Selesaiin, ivHeader ganti ke gambar gagal loading
         } else {
             list.addAll(listNews.getList());
         }
 
+        Log.i("yogi", "Jumlah list MainActivity: " + list.size());
         Picasso.with(MainActivity.this)
                 .load(list.get(0).getUrlToImage())
                 .into(ivCollaps);
