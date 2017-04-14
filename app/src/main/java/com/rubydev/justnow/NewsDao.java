@@ -2,6 +2,7 @@ package com.rubydev.justnow;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -46,7 +47,7 @@ public class NewsDao {
         this.articles = articles;
     }
 
-    public static class ArticlesBean {
+    public static class ArticlesBean implements Serializable {
         /**
          * author : BBC News
          * title : Syria chemical attack 'fabricated' - Assad

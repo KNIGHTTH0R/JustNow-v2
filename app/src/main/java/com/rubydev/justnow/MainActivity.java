@@ -1,6 +1,7 @@
 package com.rubydev.justnow;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
 import android.support.design.widget.AppBarLayout;
@@ -44,9 +45,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setup();
+    }
 
+    void setup() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         tvHeader = (TextView) findViewById(R.id.tvHeader);
+        ivCollaps = (ImageView) findViewById(R.id.ivCollaps);
+
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
         setSupportActionBar(toolbar);
         collapsingToolbarLayout.setExpandedTitleColor(Color.parseColor("#00FFFFFF"));
@@ -57,40 +63,22 @@ public class MainActivity extends AppCompatActivity {
         rv.setLayoutManager(layoutManager);
         rv.setHasFixedSize(true);
 
+        ListNews listNews = NewsPref.load(this);
+        if (listNews == null) {
+            //Selesaiin, ivHeader ganti ke gambar gaga loading
+        } else {
+            list.addAll(listNews.getList());
+        }
+
+        Picasso.with(MainActivity.this)
+                .load(list.get(0).getUrlToImage())
+                .into(ivCollaps);
+        tvHeader.setText(list.get(0).getTitle());
+        list.remove(0);
+
         adapter = new NewsAdapter(MainActivity.this, list);
         rv.setAdapter(adapter);
 
-        loadData("cnn");
-        loadData("cnbc");
-
-
-    }
-
-    public void loadData(String source) {
-        NewsClient client = Service.createService(NewsClient.class);
-        Call<NewsDao> call = client.getNews("top", source);
-        call.enqueue(new Callback<NewsDao>() {
-            @Override
-            public void onResponse(Call<NewsDao> call, Response<NewsDao> response) {
-                if (response.isSuccessful()) {
-                    NewsDao newsDao = response.body();
-                    list.addAll(newsDao.getArticles());
-                    ivCollaps = (ImageView) findViewById(R.id.ivCollaps);
-                    Picasso.with(MainActivity.this)
-                            .load(list.get(0).getUrlToImage())
-                            .into(ivCollaps);
-                    tvHeader.setText(list.get(0).getTitle());
-                    list.remove(0);
-                    adapter.notifyItemInserted(list.size());
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<NewsDao> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        ProviderPref.clearAll(MainActivity.this);
     }
 }
