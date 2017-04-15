@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -222,6 +225,8 @@ public class FirststartActivity extends AppCompatActivity {
                 }
 
                 i = new Intent(FirststartActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }
@@ -234,10 +239,13 @@ public class FirststartActivity extends AppCompatActivity {
             public void onResponse(Call<NewsDao> call, Response<NewsDao> response) {
                 if (response.isSuccessful()) {
                     NewsDao newsDao = response.body();
+
+                    for (int j = 0; j < newsDao.getArticles().size(); j++) {
+                        Picasso.with(FirststartActivity.this)
+                                .load(newsDao.getArticles().get(j).getUrlToImage());
+                    }
                     listNews.addList(newsDao.getArticles());
                     NewsPref.save(listNews, FirststartActivity.this);
-                    startActivity(i);
-                    finish();
                 }
             }
 

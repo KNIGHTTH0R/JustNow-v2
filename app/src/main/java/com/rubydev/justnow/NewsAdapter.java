@@ -47,8 +47,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.tvDesc.setText(list.get(position).getDescription());
         holder.tvAuthor.setText(list.get(position).getAuthor());
 
-        Picasso.with(context)
-                .load(list.get(position).getUrlToImage())
+        Picasso picasso = Picasso.with(context);
+        picasso.setIndicatorsEnabled(true);
+        picasso.load(list.get(position).getUrlToImage())
                 //.resize(400,-1)
                 .into(holder.ivPhoto);
     }

@@ -67,11 +67,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.newsProvider:
                 Intent i = new Intent(MainActivity.this, FirststartActivity.class);
                 startActivity(i);
+                finish();
                 return true;
 
             case R.id.reset:
                 ProviderPref.clearAll(MainActivity.this);
-
+                finish();
                 return true;
 
             default:
@@ -105,9 +106,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Log.i("yogi", "Jumlah list MainActivity: " + list.size());
-        Picasso.with(MainActivity.this)
-                .load(list.get(0).getUrlToImage())
-                .into(ivCollaps);
+        Picasso picasso = Picasso.with(MainActivity.this);
+        picasso.setIndicatorsEnabled(true);
+        picasso.load(list.get(0).getUrlToImage()).into(ivCollaps);
+
         tvHeader.setText(list.get(0).getTitle());
         list.remove(0);
 
