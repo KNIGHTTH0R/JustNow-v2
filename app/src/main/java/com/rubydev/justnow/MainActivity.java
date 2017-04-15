@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
+import android.net.Uri;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView ivCollaps;
     TextView tvHeader;
+    String headerURL;
     private List<NewsDao.ArticlesBean> list = new ArrayList<>();
     private NewsAdapter adapter;
     private RecyclerView rv;
@@ -100,7 +103,11 @@ public class MainActivity extends AppCompatActivity {
 
         ListNews listNews = NewsPref.load(this);
         if (listNews == null) {
-            //Selesaiin, ivHeader ganti ke gambar gagal loading
+            rv.setVisibility(View.GONE);
+            tvHeader.setText("Sorry, we couldn't connect to the internet :((");
+            NewsPref.clearAll(MainActivity.this);
+            ProviderPref.clearAll(MainActivity.this);
+            ivCollaps.setVisibility(View.GONE);
         } else {
             list.addAll(listNews.getList());
 
@@ -108,8 +115,19 @@ public class MainActivity extends AppCompatActivity {
             Picasso picasso = Picasso.with(MainActivity.this);
             picasso.setIndicatorsEnabled(true);
             picasso.load(list.get(0).getUrlToImage()).into(ivCollaps);
+            ivCollaps.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = headerURL;
+                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                    CustomTabsIntent customTabsIntent = builder.build();
+                    builder.setToolbarColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
+                    customTabsIntent.launchUrl(MainActivity.this, Uri.parse(url));
+                }
+            });
 
             tvHeader.setText(list.get(0).getTitle());
+            headerURL = list.get(0).getUrl();
             list.remove(0);
         }
 

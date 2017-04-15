@@ -244,8 +244,6 @@ public class FirststartActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<NewsDao> call, Throwable t) {
-                startActivity(i);
-                finish();
             }
         });
 
