@@ -66,12 +66,6 @@ public class SplashscreenActivity extends AppCompatActivity {
             public void onResponse(Call<NewsDao> call, Response<NewsDao> response) {
                 if (response.isSuccessful()) {
                     NewsDao newsDao = response.body();
-
-                    for (int j = 0; j < newsDao.getArticles().size(); j++) {
-                        Picasso.with(SplashscreenActivity.this)
-                                .load(newsDao.getArticles().get(j).getUrlToImage());
-                    }
-
                     listNews.addList(newsDao.getArticles());
                     NewsPref.save(listNews, SplashscreenActivity.this);
                 }

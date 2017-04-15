@@ -219,11 +219,9 @@ public class FirststartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Provider provider = new Provider(listProvider);
                 ProviderPref.save(provider, FirststartActivity.this);
-
                 for (int j = 0; j < listProvider.size(); j++) {
                     loadData(listProvider.get(j));
                 }
-
                 i = new Intent(FirststartActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
@@ -239,11 +237,6 @@ public class FirststartActivity extends AppCompatActivity {
             public void onResponse(Call<NewsDao> call, Response<NewsDao> response) {
                 if (response.isSuccessful()) {
                     NewsDao newsDao = response.body();
-
-                    for (int j = 0; j < newsDao.getArticles().size(); j++) {
-                        Picasso.with(FirststartActivity.this)
-                                .load(newsDao.getArticles().get(j).getUrlToImage());
-                    }
                     listNews.addList(newsDao.getArticles());
                     NewsPref.save(listNews, FirststartActivity.this);
                 }

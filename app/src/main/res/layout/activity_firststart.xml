@@ -156,6 +156,6 @@
         android:layout_margin="16dp"
         android:background="@color/colorAccent"
         android:text="Finish!"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorBlack"
         android:visibility="invisible" />
 </LinearLayout>

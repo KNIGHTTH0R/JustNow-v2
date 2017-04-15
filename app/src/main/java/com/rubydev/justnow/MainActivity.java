@@ -103,15 +103,17 @@ public class MainActivity extends AppCompatActivity {
             //Selesaiin, ivHeader ganti ke gambar gagal loading
         } else {
             list.addAll(listNews.getList());
+
+            Log.i("yogi", "Jumlah list MainActivity: " + list.size());
+            Picasso picasso = Picasso.with(MainActivity.this);
+            picasso.setIndicatorsEnabled(true);
+            picasso.load(list.get(0).getUrlToImage()).into(ivCollaps);
+
+            tvHeader.setText(list.get(0).getTitle());
+            list.remove(0);
         }
 
-        Log.i("yogi", "Jumlah list MainActivity: " + list.size());
-        Picasso picasso = Picasso.with(MainActivity.this);
-        picasso.setIndicatorsEnabled(true);
-        picasso.load(list.get(0).getUrlToImage()).into(ivCollaps);
 
-        tvHeader.setText(list.get(0).getTitle());
-        list.remove(0);
 
         adapter = new NewsAdapter(MainActivity.this, list);
         rv.setAdapter(adapter);
