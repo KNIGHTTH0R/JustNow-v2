@@ -154,7 +154,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="16dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/checkboxbg_clicked"
         android:text="Finish!"
         android:textColor="@color/colorBlack"
         android:visibility="invisible" />
