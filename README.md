@@ -4,11 +4,11 @@ An app that i wrote for my final project of my Software Engineering Laboratory. 
 
 In this second version, i've made some improvements, especially the UI and the UX. Just check it out!
 
-#Screenshot
+# Screenshot
+![Alt text](/Splashscreen.png)
+![Alt text](/Provider.png)
 ![Alt text](/Main.png)
 ![Alt text](/News.png)
-![Alt text](/Provider.png)
-![Alt text](/Splashscreen.png)
 
 ## License
 
