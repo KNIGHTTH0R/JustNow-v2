@@ -1,6 +1,8 @@
-package com.rubydev.justnow;
+package com.rubydev.justnow.Class;
 
 import android.util.Log;
+
+import com.rubydev.justnow.News.NewsDao;
 
 import java.util.ArrayList;
 import java.util.List;

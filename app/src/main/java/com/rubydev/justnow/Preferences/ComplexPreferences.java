@@ -1,4 +1,4 @@
-package com.rubydev.justnow;
+package com.rubydev.justnow.Preferences;
 
 /**
  * Created by yogiwisesa on 14/04/17.

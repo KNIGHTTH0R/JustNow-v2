@@ -1,24 +1,21 @@
-package com.rubydev.justnow;
+package com.rubydev.justnow.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rubydev.justnow.News.NewsDao;
+import com.rubydev.justnow.R;
 import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,7 +41,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(NewsAdapter.ViewHolder holder, final int position) {
         holder.tvTitle.setText(list.get(position).getTitle());
-        holder.tvDesc.setText(list.get(position).getDescription());
         holder.tvAuthor.setText(list.get(position).getAuthor());
 
         Picasso picasso = Picasso.with(context);
@@ -60,14 +56,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tvTitle, tvDesc, tvAuthor;
+        TextView tvTitle, tvAuthor;
         ImageView ivPhoto;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-            tvDesc = (TextView) itemView.findViewById(R.id.tvDesc);
             tvAuthor = (TextView) itemView.findViewById(R.id.tvAuthor);
             ivPhoto = (ImageView) itemView.findViewById(R.id.ivPhoto);
         }

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashscreenActivity"
+            android:name=".Activity.SplashscreenActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,12 +21,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FirststartActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:name=".Activity.FirststartActivity" />
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".NewsReader"></activity>
+            android:name=".Activity.MainActivity" />
     </application>
 
 </manifest>

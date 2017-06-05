@@ -1,4 +1,4 @@
-package com.rubydev.justnow;
+package com.rubydev.justnow.News;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -1,4 +1,6 @@
-package com.rubydev.justnow;
+package com.rubydev.justnow.News;
+
+import javax.xml.transform.Source;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -14,4 +16,7 @@ public interface NewsClient {
             @Query("sortBy") String sort,
             @Query("source") String source
     );
+
+    @GET("sources")
+    Call<SourceDao> getSource();
 }

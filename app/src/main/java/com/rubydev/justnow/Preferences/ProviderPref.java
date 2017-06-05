@@ -1,24 +1,26 @@
-package com.rubydev.justnow;
+package com.rubydev.justnow.Preferences;
 
 import android.content.Context;
 
+import com.rubydev.justnow.Class.Provider;
+
 /**
- * Created by yogiwisesa on 15/04/17.
+ * Created by yogiwisesa on 14/04/17.
  */
 
-public class NewsPref {
-    public static final String PREFS_NAME = "News_prefs";
-    public static final String PREFS_VAL = "News_value";
+public class ProviderPref {
+    public static final String PREFS_NAME = "Provider_prefs";
+    public static final String PREFS_VAL = "Provider_value";
 
-    public static void save(ListNews data, Context ctx) {
+    public static void save(Provider data, Context ctx) {
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(ctx, PREFS_NAME, 0);
         complexPreferences.putObject(PREFS_VAL, data);
         complexPreferences.commit();
     }
 
-    public static ListNews load(Context ctx) {
+    public static Provider load(Context ctx) {
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(ctx, PREFS_NAME, 0);
-        return complexPreferences.getObject(PREFS_VAL, ListNews.class);
+        return complexPreferences.getObject(PREFS_VAL, Provider.class);
     }
 
     public static String getJSON(Context ctx) {

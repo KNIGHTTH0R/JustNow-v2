@@ -1,4 +1,4 @@
-package com.rubydev.justnow;
+package com.rubydev.justnow.News;
 
 import android.support.annotation.NonNull;
 

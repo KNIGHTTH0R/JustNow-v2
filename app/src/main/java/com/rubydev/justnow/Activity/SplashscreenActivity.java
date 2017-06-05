@@ -1,4 +1,4 @@
-package com.rubydev.justnow;
+package com.rubydev.justnow.Activity;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -6,12 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import com.rubydev.justnow.Class.ListNews;
+import com.rubydev.justnow.News.NewsClient;
+import com.rubydev.justnow.News.NewsDao;
+import com.rubydev.justnow.Preferences.NewsPref;
+import com.rubydev.justnow.Preferences.ProviderPref;
+import com.rubydev.justnow.Class.Provider;
+import com.rubydev.justnow.R;
+import com.rubydev.justnow.News.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,9 +24,8 @@ import retrofit2.Response;
 
 public class SplashscreenActivity extends AppCompatActivity {
     static ListNews listNews;
-    ArrayList<String> listProvider = new ArrayList<>();
-
     Intent i;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,21 +41,13 @@ public class SplashscreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 listNews = new ListNews();
-
                 Provider provider = ProviderPref.load(SplashscreenActivity.this);
                 if (provider == null) {
                     i = new Intent(SplashscreenActivity.this, FirststartActivity.class);
                 } else {
-                    listProvider.addAll(provider.getProviderList());
-                    for (int j = 0; j < listProvider.size(); j++) {
-                        Log.i("yogi", listProvider.get(j));
-                        loadData(listProvider.get(j));
-                    }
+                    loadData(provider.getProvider());
                     i = new Intent(SplashscreenActivity.this, MainActivity.class);
                 }
-                ImageView iv = (ImageView) findViewById(R.id.iv);
-
-                finish();
                 startActivity(i);
                 finish();
             }
